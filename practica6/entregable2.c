@@ -25,8 +25,6 @@ void main(){
 
 	father_id = getpid();
 
-	printf("\n\nPID=%d\n\n", getpid());
-
 	if(getpid() == father_id){
 		switch(fork()){
 			case ERROR:
@@ -51,10 +49,15 @@ void main(){
 								exit(EXIT_FAILURE);
 								break;
 							case AT_SON:						
-								printf(message, 3, getppid(), getpid());
+								printf(message, 3, getppid(), getpid());								
 								exit(EXIT_SUCCESS);
 								break;
+							default:
+								wait(NULL);
+								break;
 						}
+						wait(NULL);
+						break;
 				}
 				wait(NULL);
 				exit(EXIT_SUCCESS);
