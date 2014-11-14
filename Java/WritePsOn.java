@@ -21,7 +21,7 @@ public class WritePsOn{
 			String line;
 
 			while((line = bufferedReader.readLine()) != null)
-				printWriter.print(line);
+				printWriter.println(line);
 
 			bufferedReader.close();
 			printWriter.close();
