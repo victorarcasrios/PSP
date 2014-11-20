@@ -13,18 +13,19 @@ public class Main{
 		try{
 			process = runtime.exec(COMMAND);
 
+			InputStream is = process.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			OutputStream os = process.getOutputStream();
+
+			System.out.println(br.readLine());
 			for(int i = 0; i < 2; i++){
 				os.write(INPUT.getBytes());
 				os.flush();
+				System.out.printf(INPUT);
+				is = process.getInputStream();
+				System.out.println(br.readLine());
 			}
 
-			InputStream is = process.getInputStream();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
-			while((line = br.readLine()) != null)
-				System.out.println(line);
-			br.close();
 		}catch(IOException ioex){
 			ioex.printStackTrace();
 		}
