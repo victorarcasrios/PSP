@@ -1,6 +1,7 @@
 package threads;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.io.IOException;
 
@@ -8,8 +9,11 @@ public class Contador3 {
 	private static Counter firstCounter;
 	private static Counter secondCounter;
 	private static Counter thirdCounter;
+	private static int readyToPrint = 0;
+	private static Container container = null;
 	
 	public static void main(String[]args){
+		container = new Container();
 		firstCounter = new Counter(0, 5);
 		secondCounter = new Counter(100, 2);
 		thirdCounter = new Counter(45,3);
@@ -22,9 +26,15 @@ public class Contador3 {
 	}
 	
 	public static void repaint(){
-		System.out.printf("Hilo 1: %d\n", firstCounter.getTime());
-		System.out.printf("Hilo 2: %d\n", secondCounter.getTime());
-		System.out.printf("Hilo 3: %d\n", secondCounter.getTime());
+		if(readyToPrint >= 3){
+			System.out.println("#############################################");
+			System.out.printf("Hilo 1: %d\n", firstCounter.getTime());
+			System.out.printf("Hilo 2: %d\n", secondCounter.getTime());
+			System.out.printf("Hilo 3: %d\n", thirdCounter.getTime());
+			System.out.println("#############################################");
+			readyToPrint = 0;
+		}else
+			readyToPrint++;
 		try{
 			Runtime.getRuntime().exec("clear");
 		}catch(IOException ioex){}
